@@ -1,0 +1,10 @@
+services:
+  gold-tracker:
+    build: .
+    image: gold-price-tracker:latest
+    container_name: gold-price-tracker
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+    restart: unless-stopped

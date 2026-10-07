@@ -1,0 +1,59 @@
+<header class="sticky top-0 z-50 bg-[#ffffff]/95 dark:bg-[#14151a]/95 backdrop-blur-md border-b border-[#d4af37]/35 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+
+    <!-- Logo & Title -->
+    <div class="flex items-center gap-3.5 group cursor-pointer">
+      <div class="relative">
+        <div class="absolute -inset-1 rounded-full bg-gradient-to-r from-[#d4af37] to-[#f5e6b8] opacity-50 blur-sm group-hover:opacity-80 transition duration-500"></div>
+        <img
+          src="gold.jpg"
+          alt="شعار الذهب العُماني"
+          class="relative w-11 h-11 rounded-full object-cover border-2 border-[#d4af37]/80 shadow-sm"
+        />
+      </div>
+      <div>
+        <span class="text-xl font-black tracking-wide text-[#3a280f] dark:text-[#f5e9c8] block leading-none font-serif">الذهب العُماني</span>
+        <span class="text-[11px] text-[#99681e] dark:text-[#e6c76a] font-bold tracking-wider">OMAN GOLD TRACKER</span>
+      </div>
+    </div>
+
+    <!-- Navigation links -->
+    <nav class="hidden md:flex items-center gap-8 text-sm font-bold text-[#5c4424] dark:text-[#e9dcb8]">
+      <a href="#today-prices" class="hover:text-[#b8860b] dark:hover:text-[#f0d892] transition-colors relative py-1 after:absolute after:bottom-0 after:right-0 after:w-0 after:h-[2px] after:bg-[#d4af37] hover:after:w-full after:transition-all">أسعار الذهب</a>
+      <a href="#calculator" class="hover:text-[#b8860b] dark:hover:text-[#f0d892] transition-colors relative py-1 after:absolute after:bottom-0 after:right-0 after:w-0 after:h-[2px] after:bg-[#d4af37] hover:after:w-full after:transition-all">حاسبة الذهب</a>
+      <a href="#trend" class="hover:text-[#b8860b] dark:hover:text-[#f0d892] transition-colors relative py-1 after:absolute after:bottom-0 after:right-0 after:w-0 after:h-[2px] after:bg-[#d4af37] hover:after:w-full after:transition-all">حركة السوق</a>
+      <a href="#history" class="hover:text-[#b8860b] dark:hover:text-[#f0d892] transition-colors relative py-1 after:absolute after:bottom-0 after:right-0 after:w-0 after:h-[2px] after:bg-[#d4af37] hover:after:w-full after:transition-all">سجل الأسعار</a>
+    </nav>
+
+    <!-- Right side: demo-data badge, market badge, theme toggle -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <span class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold bg-[#f5ecda] text-[#7a5410] border border-[#d4af37]/45 shadow-sm dark:bg-[#2a2415] dark:text-[#e6c76a]">
+        <span class="w-2 h-2 rounded-full bg-[#d4af37] animate-pulse"></span>
+        سوق مسقط المالي
+      </span>
+      <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-900/40 dark:text-amber-200 dark:border-amber-700">
+        بيانات تجريبية
+      </span>
+      <button
+        type="button"
+        (click)="toggleTheme()"
+        [attr.aria-label]="isDark ? 'التبديل إلى الوضع الفاتح' : 'التبديل إلى الوضع الداكن'"
+        [attr.aria-pressed]="isDark"
+        class="w-10 h-10 rounded-full flex items-center justify-center text-lg border border-[#d4af37]/50 bg-[#f5ecda] hover:bg-[#eedcb3] dark:bg-[#2a2415] dark:hover:bg-[#3a2f17] transition-colors cursor-pointer"
+      >
+        {{ isDark ? '☀️' : '🌙' }}
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Navigation links on small screens -->
+  <nav class="md:hidden border-t border-[#d4af37]/25 overflow-x-auto">
+    <div class="flex gap-6 px-4 py-2.5 text-xs font-bold text-[#5c4424] dark:text-[#e9dcb8] whitespace-nowrap">
+      <a href="#today-prices">أسعار الذهب</a>
+      <a href="#calculator">حاسبة الذهب</a>
+      <a href="#trend">حركة السوق</a>
+      <a href="#history">سجل الأسعار</a>
+    </div>
+  </nav>
+</header>

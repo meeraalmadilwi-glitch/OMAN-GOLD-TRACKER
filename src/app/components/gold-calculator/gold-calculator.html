@@ -1,0 +1,105 @@
+<div class="gold-glass-card rounded-2xl p-6 sm:p-8">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+
+    <!-- Inputs Column -->
+    <div class="lg:col-span-7 space-y-6">
+      <div>
+        <label for="karat" class="block text-sm font-bold text-[#68470a] dark:text-[#e6c76a] mb-2 flex items-center gap-2">
+          <span>👑 اختر عيار الذهب</span>
+        </label>
+        <div class="relative">
+          <select
+            id="karat"
+            class="w-full rounded-xl bg-[#faf7f0] dark:bg-[#14151a] border border-[#d4af37]/60 px-4 py-3 text-[#2c2011] dark:text-[#f1f1f1] appearance-none focus:outline-none focus:border-[#99681e] focus:ring-1 focus:ring-[#99681e] transition-all cursor-pointer font-bold shadow-inner"
+            [(ngModel)]="selectedKarat"
+          >
+            @for (gold of goldPrices; track gold.karat) {
+              <option [value]="gold.karat" class="bg-white text-[#2c2011] dark:text-[#f1f1f1]">
+                {{ karatLabel(gold.karat) }} — ({{ gold.price.toFixed(3) }} ر.ع / جرام)
+              </option>
+            }
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center px-4 text-[#99681e] dark:text-[#e6c76a]">
+            ▼
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="grams" class="block text-sm font-bold text-[#68470a] dark:text-[#e6c76a] mb-2 flex items-center gap-2">
+          <span>⚖️ الوزن بالجرام</span>
+        </label>
+        <div class="relative">
+          <input
+            id="grams"
+            type="number"
+            min="0"
+            step="any"
+            placeholder="مثال: 25.5"
+            class="w-full rounded-xl bg-[#faf7f0] dark:bg-[#14151a] border px-4 py-3 text-[#2c2011] dark:text-[#f1f1f1] font-mono text-lg font-bold focus:outline-none focus:ring-1 transition-all shadow-inner"
+            [class.border-[#d4af37]/60]="isValidWeight"
+            [class.focus:border-[#99681e]]="isValidWeight"
+            [class.focus:ring-[#99681e]]="isValidWeight"
+            [class.border-rose-500]="!isValidWeight"
+            [attr.aria-invalid]="!isValidWeight"
+            aria-describedby="grams-error"
+            [(ngModel)]="grams"
+          />
+          <span class="absolute inset-y-0 left-0 flex items-center px-4 text-xs font-bold text-[#7e6749] dark:text-[#cdbb92]">
+            جرام
+          </span>
+        </div>
+        @if (!isValidWeight) {
+          <p id="grams-error" role="alert" class="mt-2 text-xs text-rose-600 font-bold flex items-center gap-1">
+            ⚠️ يُرجى إدخال وزن صالح أكبر من صفر.
+          </p>
+        }
+      </div>
+
+      <button
+        type="button"
+        class="w-full py-3.5 px-6 rounded-xl font-bold text-sm tracking-wide bg-gradient-to-r from-[#d4af37] via-[#f0d892] to-[#b8860b] text-[#2c1d06] shadow-md hover:shadow-lg hover:scale-[1.01] active:scale-[0.99] disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 transition-all duration-200 cursor-pointer"
+        [disabled]="!isValidWeight"
+        (click)="calculateGoldValue()"
+      >
+        حساب القيمة الإجمالية 💰
+      </button>
+    </div>
+
+    <!-- Result Column -->
+    <div class="lg:col-span-5">
+      @if (hasCalculated) {
+        <div
+          class="relative overflow-hidden rounded-2xl p-7 text-center border border-[#d4af37]/70 shadow-lg bg-gradient-to-br from-[#fffcf5] to-[#faedd0] dark:from-[#2a2415] dark:to-[#1f1a0e]"
+        >
+          <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#d4af37]/25 rounded-full blur-2xl"></div>
+
+          <span class="inline-block px-3.5 py-1 rounded-full text-xs font-bold bg-[#eedcb3] dark:bg-[#3a2f17] text-[#6d4b0d] dark:text-[#e6c76a] border border-[#d4af37]/60 mb-3 shadow-sm">
+            نتيجة التقدير
+          </span>
+
+          <p class="text-xs text-[#735a39] dark:text-[#cdbb92] font-medium">القيمة الإجمالية المقدرة</p>
+          
+          <div class="my-4">
+            <span class="text-4xl sm:text-5xl font-black text-[#2e1f0a] dark:text-[#f5e9c8] font-mono tracking-tight block">
+              {{ totalValue.toFixed(3) }}
+            </span>
+            <span class="text-sm font-bold text-[#8a5c0b] dark:text-[#e6c76a] tracking-wider mt-1 block">ريال عُماني</span>
+          </div>
+
+          <div class="pt-4 border-t border-[#d4af37]/35 text-xs text-[#523d20] dark:text-[#e9dcb8] space-y-1">
+            <p>{{ resultGrams }} جرام من <span class="text-[#8a5c0b] dark:text-[#e6c76a] font-bold">{{ karatLabel(resultKarat) }}</span></p>
+            <p class="text-[11px] text-[#735a39] dark:text-[#cdbb92] font-mono">{{ resultGrams }} × {{ resultPrice.toFixed(3) }} ر.ع</p>
+          </div>
+        </div>
+      } @else {
+        <div class="rounded-2xl border border-dashed border-[#d4af37]/50 p-8 flex flex-col items-center justify-center text-center h-full min-h-[220px] bg-[#faf7f0] dark:bg-[#14151a] dark:bg-[#14151a]">
+          <span class="text-3xl mb-3 opacity-70">⚖️</span>
+          <p class="text-sm text-[#47361c] dark:text-[#e9dcb8] font-bold">بانتظار إدخال البيانات</p>
+          <p class="text-xs text-[#7e6749] dark:text-[#cdbb92] mt-1 max-w-[200px]">اختر العيار وحدد الوزن ثم اضغط "حساب القيمة" لعرض التكلفة.</p>
+        </div>
+      }
+    </div>
+
+  </div>
+</div>
