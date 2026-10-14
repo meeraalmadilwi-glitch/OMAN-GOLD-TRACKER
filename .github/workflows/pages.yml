@@ -1,8 +1,8 @@
 name: Deploy to GitHub Pages
 
+# Manual only: the Angular app needs the ASP.NET Core API (backend/), which is not hosted
+# online, so a static Pages deployment would just show the "cannot reach the server" message.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

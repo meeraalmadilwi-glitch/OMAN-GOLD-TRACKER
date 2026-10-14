@@ -103,19 +103,19 @@ describe('GoldCalculator', () => {
 
     await ui.calculate();
     expect(ui.text()).toContain('10 جرام من عيار 21');
-    expect(ui.text()).toContain('471.000 ر.ع');
+    expect(ui.text()).toContain('471.000 ريال عُماني');
 
     // the user edits the inputs but has not pressed the button again
     await ui.type('99');
     await ui.pick('24K');
     expect(ui.text()).toContain('10 جرام من عيار 21');
-    expect(ui.text()).toContain('471.000 ر.ع');
+    expect(ui.text()).toContain('471.000 ريال عُماني');
     expect(ui.text()).not.toContain('99 جرام');
 
     // pressing the button again updates the card
     await ui.calculate();
     expect(ui.text()).toContain('99 جرام من عيار 24');
-    expect(ui.text()).toContain('5330.160 ر.ع');
+    expect(ui.text()).toContain('5330.160 ريال عُماني');
   });
 
   it('should disable the button and show a message while the weight is invalid', async () => {
@@ -128,7 +128,7 @@ describe('GoldCalculator', () => {
     for (const invalid of ['-3', '0', '']) {
       await ui.type(invalid);
       expect(ui.button.disabled).toBe(true);
-      expect(alert()?.textContent).toContain('أدخل وزنًا أكبر من صفر');
+      expect(alert()?.textContent).toContain('يُرجى إدخال وزن صالح أكبر من صفر');
     }
 
     // a disabled button cannot produce a result
@@ -139,6 +139,6 @@ describe('GoldCalculator', () => {
     expect(ui.button.disabled).toBe(false);
     expect(alert()).toBeNull();
     await ui.calculate();
-    expect(ui.text()).toContain('117.750 ر.ع');
+    expect(ui.text()).toContain('117.750 ريال عُماني');
   });
 });

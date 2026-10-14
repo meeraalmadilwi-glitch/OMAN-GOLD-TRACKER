@@ -135,6 +135,8 @@ Example `404` response (`GET /api/prices/99`):
 | `Services/` | `IGoldPriceService` and `InMemoryGoldPriceService` (the demo data) |
 | `Program.cs` | Dependency injection, CORS for Angular (`localhost:4200` / `4000`), Swagger |
 
+> The GitHub Pages workflow (`.github/workflows/pages.yml`) runs only when started manually, because the API is not hosted online. Run both projects locally as described above.
+
 > The Angular SSR server (`src/server.ts`) renders each request on demand (it does not prerender at build time) so the API does not need to run while building.
 
 ## Creating a New Component
