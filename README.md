@@ -78,11 +78,64 @@ For safety, Angular's server only answers requests whose `Host` header is on an 
 ng test
 ```
 
-## Backend
+## Backend (ASP.NET Core Web API)
 
-The only server-side code is `src/server.ts`: an **Express** server that serves the built files and renders the Angular app on the server (SSR). There is no separate API or database; the prices come from `GoldService`, which reads the demo data in `src/app/data/gold-data.ts`.
+The prices now come from a REST API built with **ASP.NET Core (.NET 10)** in [`backend/GoldPriceTracker.Api`](backend/GoldPriceTracker.Api). It uses Controllers, keeps the demo prices in an in-memory list (no database) and has Swagger for testing. Angular loads every price from it through `HttpClient` (`src/app/services/gold.service.ts`); no prices are hard-coded in the UI.
 
-To use a real API later, change only the two methods in `src/app/services/gold.service.ts` (for example to call `HttpClient`). No component needs to change.
+### Backend prerequisites
+
+- [.NET SDK 10](https://dotnet.microsoft.com/download) - check it with `dotnet --version`
+- VS Code extension **C# Dev Kit** (optional, for editing)
+
+### Run the API
+
+```bash
+cd backend/GoldPriceTracker.Api
+dotnet run --launch-profile http
+```
+
+- API: `http://localhost:5142`
+- Swagger UI (test the endpoints here): `http://localhost:5142/swagger`
+
+### Run Angular with the API
+
+1. Start the API as shown above (keep it running).
+2. In a second terminal, from the project root: `npm install` then `ng serve`.
+3. Open `http://localhost:4200`.
+
+If the API runs on another address, change `API_BASE_URL` in `src/app/config/api.config.ts`.
+
+### Endpoints
+
+| Method | URL | Description | Status codes |
+| --- | --- | --- | --- |
+| GET | `/api/prices` | Prices of all karats (24, 22, 21, 18) | 200 |
+| GET | `/api/prices/{karat}` | Price of one karat, e.g. `/api/prices/22` | 200, 404 if the karat does not exist |
+| GET | `/api/prices?karat=21` | Same as above using a query parameter | 200, 404 |
+| GET | `/api/prices/history` | 30 days of prices, oldest first | 200 |
+
+Example response of `GET /api/prices/22`:
+
+```json
+{ "karat": 22, "pricePerGram": 49.310, "currency": "OMR" }
+```
+
+Example `404` response (`GET /api/prices/99`):
+
+```json
+{ "title": "Karat not found", "status": 404, "detail": "No price is available for karat 99. Available karats: 24, 22, 21, 18." }
+```
+
+### Backend structure
+
+| Folder | Purpose |
+| --- | --- |
+| `Controllers/` | `PricesController` with the HTTP endpoints |
+| `Models/` | `GoldPrice`, `GoldHistoryEntry` |
+| `Services/` | `IGoldPriceService` and `InMemoryGoldPriceService` (the demo data) |
+| `Program.cs` | Dependency injection, CORS for Angular (`localhost:4200` / `4000`), Swagger |
+
+> The Angular SSR server (`src/server.ts`) renders each request on demand (it does not prerender at build time) so the API does not need to run while building.
 
 ## Creating a New Component
 
@@ -103,7 +156,7 @@ Here's a quick overview of the main folders inside `src/app`:
 | `components/` | UI components (header, gold price card, calculator, chart, price history) |
 | `services/` | Handles data fetching and business logic (e.g. `gold.service.ts`) |
 | `models/` | TypeScript interfaces/types describing data shapes (e.g. `gold.model.ts`) |
-| `data/` | Static or mock data used by the app (e.g. `gold-data.ts`) |
+| `config/` | App settings such as the API address (`api.config.ts`) |
 
 Other important files: `src/server.ts` (Express SSR server), `public/` (logo and favicon).
 

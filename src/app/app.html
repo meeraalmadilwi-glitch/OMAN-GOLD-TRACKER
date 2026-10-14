@@ -81,7 +81,15 @@
       </div>
     </div>
 
-    @if (goldPrices.length === 0) {
+    @if (isLoading) {
+      <div class="gold-glass-card rounded-2xl p-8 text-center text-gray-500 dark:text-gray-400">
+        جارٍ تحميل الأسعار من الخادم...
+      </div>
+    } @else if (hasError) {
+      <div role="alert" class="gold-glass-card rounded-2xl p-8 text-center text-red-700 dark:text-red-300">
+        تعذّر الاتصال بالخادم. تأكد من تشغيل الـ API ثم أعد تحميل الصفحة.
+      </div>
+    } @else if (goldPrices.length === 0) {
       <div class="gold-glass-card rounded-2xl p-8 text-center text-gray-500 dark:text-gray-400">
         لا توجد أسعار ذهب متاحة حاليًا.
       </div>
