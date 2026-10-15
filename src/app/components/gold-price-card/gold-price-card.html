@@ -1,23 +1,29 @@
-<div class="relative group overflow-hidden rounded-2xl p-6 transition-all duration-300 gold-glass-card hover:-translate-y-1">
-  <!-- Top soft gold accent line -->
-  <div class="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-[#d4af37] to-transparent opacity-60 group-hover:opacity-100 transition-opacity"></div>
-  
-  <div class="flex items-center justify-between mb-4">
-    <span class="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-black tracking-wide bg-[#f6eee0] dark:bg-[#2a2415] text-[#7a5410] dark:text-[#e6c76a] border border-[#d4af37]/50 shadow-sm">
-      {{ karatLabel }}
-    </span>
-    <span class="text-xs text-[#8a7251] dark:text-[#cdbb92] font-semibold">نقاء {{ purity }}</span>
+<div class="t-panel p-5 relative overflow-hidden hover:-translate-y-1">
+  <!-- Decorative corner pattern -->
+  <div class="omani-pattern absolute -top-4 -left-4 w-28 h-28 opacity-60 pointer-events-none"></div>
+  <div class="absolute top-0 inset-x-0 h-1 bg-gradient-to-l from-[var(--red)] via-[var(--gold)] to-[var(--green)]"></div>
+
+  <div class="relative flex items-center justify-between">
+    <span class="t-display text-lg font-bold text-[var(--gold)]">{{ karatLabel }}</span>
+    <span class="text-xs font-bold text-[var(--muted)] bg-[var(--panel-2)] px-2.5 py-1 rounded-full">نقاء {{ purity }}</span>
   </div>
 
-  <div class="my-3">
-    <div class="text-3xl sm:text-4xl font-black tracking-tight text-[#2c2011] dark:text-[#f1f1f1] font-mono flex items-baseline justify-center gap-1.5">
-      <span>{{ price.toFixed(3) }}</span>
-      <span class="text-sm font-sans font-bold text-[#99681e] dark:text-[#e6c76a]">{{ currency }}</span>
-    </div>
+  <div class="relative mt-5 flex items-baseline gap-2 justify-end" dir="ltr">
+    <span class="t-num text-4xl font-black text-[var(--text)]">{{ price.toFixed(3) }}</span>
+    <span class="text-sm font-bold text-[var(--muted)]">{{ currency }}</span>
   </div>
 
-  <div class="mt-4 pt-3 border-t border-[#d4af37]/25 flex items-center justify-between text-xs text-[#7e6749] dark:text-[#cdbb92]">
-    <span>{{ unit }}</span>
-    <span class="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">الريال العُماني</span>
+  <div class="relative mt-4 pt-3 border-t border-dashed border-[var(--line)] flex items-center justify-between text-xs">
+    <span class="text-[var(--muted)] font-medium">{{ unit }}</span>
+    @if (change !== null) {
+      <span
+        class="t-num font-bold px-2 py-0.5 rounded-full"
+        [class.t-up]="change >= 0"
+        [class.t-down]="change < 0"
+        [class.bg-[var(--panel-2)]]="true"
+      >
+        {{ change >= 0 ? '▲ +' : '▼ ' }}{{ change.toFixed(3) }}
+      </span>
+    }
   </div>
 </div>

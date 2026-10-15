@@ -13,6 +13,8 @@ export class GoldPriceCard {
   @Input() price = 0;
   @Input() currency = 'ر.ع';
   @Input() unit = 'لكل جرام صافي';
+  // Change versus the previous day; null hides the indicator
+  @Input() change: number | null = null;
 
   get karatLabel(): string {
     return karatLabel(this.karat);

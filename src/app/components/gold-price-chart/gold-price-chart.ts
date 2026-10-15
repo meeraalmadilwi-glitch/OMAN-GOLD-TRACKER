@@ -86,6 +86,18 @@ export class GoldPriceChart {
       .join(' ');
   }
 
+  // Same line closed down to the bottom edge, used to fill the area under the chart
+  get areaPoints(): string {
+    const points = this.chartPoints;
+    if (!points) return '';
+    return `0,${this.chartHeight} ${points} ${this.chartWidth},${this.chartHeight}`;
+  }
+
+  // Y positions of the horizontal grid lines
+  get gridLines(): number[] {
+    return [0, 0.25, 0.5, 0.75, 1].map((ratio) => ratio * this.chartHeight);
+  }
+
   // One dot per day, used to show tooltips on hover
   get chartDots() {
     const prices = this.selectedPrices;

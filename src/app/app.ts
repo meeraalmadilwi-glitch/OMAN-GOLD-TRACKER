@@ -56,6 +56,25 @@ export class App {
     return last ? formatFullDate(last.date) : '—';
   }
 
+  // The 24K price is highlighted in the hero
+  get featured(): GoldPrice | undefined {
+    return this.goldPrices.find((gold) => gold.karat === '24K');
+  }
+
+  // Change of one karat between the last two days of history (0 when there is not enough data)
+  dailyChange(karat: string): number {
+    const history = this.goldHistory;
+    if (history.length < 2) return 0;
+    const field = ('price' + karat.toLowerCase()) as keyof GoldHistory;
+    const last = history[history.length - 1][field] as number;
+    const previous = history[history.length - 2][field] as number;
+    return last - previous;
+  }
+
+  absChange(karat: string): number {
+    return Math.abs(this.dailyChange(karat));
+  }
+
   private load<T>(source: Observable<T[]>) {
     return source.pipe(
       map((data): LoadState<T> => ({ data, loading: false, failed: false })),

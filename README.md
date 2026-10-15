@@ -166,7 +166,7 @@ Each component folder typically contains an `.html` (template), `.css` (styles),
 
 ## Git Repository
 
-https://github.com/meeraalmadilwi-glitch/Gold-Price-Tracker
+https://github.com/meeraalmadilwi-glitch/OMAN-GOLD-TRACKER
 
 ## Troubleshooting
 

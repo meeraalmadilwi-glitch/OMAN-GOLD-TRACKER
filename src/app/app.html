@@ -1,153 +1,150 @@
 <app-header />
 
-<main class="min-h-screen bg-[#faf7f0] dark:bg-[#14151a] text-[#2c2011] dark:text-[#f1f1f1] relative overflow-hidden">
+<main class="min-h-screen bg-[var(--bg)] text-[var(--text)]">
 
-  <!-- Ambient Soft Gold Glow in background -->
-  <div class="absolute top-0 right-1/4 w-[500px] h-[500px] bg-[#d4af37]/12 rounded-full blur-[140px] pointer-events-none"></div>
-  <div class="absolute top-[45%] left-[-10%] w-[600px] h-[600px] bg-[#f5e6b8]/40 rounded-full blur-[160px] pointer-events-none"></div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 relative z-10">
-
-    <!-- Breadcrumb -->
-    <nav class="mb-6 text-xs sm:text-sm text-[#8a6820] dark:text-[#e6c76a] flex items-center gap-2">
-      <span class="hover:text-[#c49326] dark:hover:text-[#f0d892] transition-colors cursor-pointer">الرئيسية</span>
-      <span>›</span>
-      <span class="text-[#6d4d0b] dark:text-[#e6c76a] font-bold">أسعار الذهب المباشرة في سلطنة عُمان</span>
-    </nav>
-
-    <!-- Luxury Soft Gold Hero Section -->
-    <section
-      dir="rtl"
-      lang="ar"
-      class="relative overflow-hidden rounded-[28px] border border-[#d4af37]/45 shadow-xl p-8 sm:p-12 lg:p-14"
-      style="background: linear-gradient(135deg, #2e1d08 0%, #5c3b12 40%, #99681e 80%, #c49326 100%);"
+  <!-- Hero: deep red with Omani geometric pattern -->
+  <section dir="rtl" lang="ar" class="max-w-7xl mx-auto px-4 sm:px-6 pt-8">
+    <div
+      class="relative overflow-hidden rounded-[28px] p-8 sm:p-12 text-[#fff4dc] shadow-xl"
+      style="background: linear-gradient(135deg, #5e0b10 0%, #8a1218 55%, #a4161a 100%);"
     >
-      <!-- Decorative circles & light sheen -->
-      <div class="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
-      <div class="absolute -bottom-10 -left-10 w-60 h-60 bg-[#f7df94]/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="omani-pattern absolute inset-0 opacity-70 pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-[#e0ac45]/20 blur-3xl pointer-events-none"></div>
+      <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-l from-[#e0ac45] via-[#f6d98b] to-[#e0ac45]"></div>
 
-      <div class="relative z-10 max-w-3xl text-right">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 border border-white/25 text-[#fceec4] text-xs font-bold tracking-wide mb-5 backdrop-blur-sm">
-          <span>✨ رصد لحظي موثوق</span>
-          <span class="w-1 h-1 rounded-full bg-[#fceec4]"></span>
-          <span>تحديثات يومية مستمرة</span>
+      <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-7">
+          <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/12 border border-[#e0ac45]/50 text-[#f6d98b] text-xs font-bold mb-5">
+            <span class="w-2 h-2 rounded-full bg-[#f6d98b] animate-pulse"></span>
+            تحديث يومي · سوق مسقط
+          </span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+            سعر الذهب اليوم في <span class="text-[#f6d98b]">عُمان</span>
+          </h1>
+          <p class="mt-4 text-base sm:text-lg text-[#fff4dc]/85 max-w-xl leading-relaxed">
+            تابع أسعار الذهب بمختلف العيارات بالريال العُماني، واحسب قيمة مقتنياتك، وراقب حركة السوق خلال آخر ٣٠ يومًا.
+          </p>
         </div>
 
-        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-white font-serif">
-          سعر الذهب اليوم في <span class="text-[#fceec4] drop-shadow-sm">عُمان</span>
-        </h1>
-
-        <p class="mt-5 text-base sm:text-lg leading-relaxed text-white/90 font-light">
-          منصتك الكلاسيكية المتخصصة لمتابعة متوسط أسعار الذهب بمختلف عياراته بالريال العُماني، وحساب القيمة بدقة فائقة مع تحليل حركة الأسعار لآخر ٣٠ يومًا.
-        </p>
+        <!-- Featured 24K price -->
+        <div class="lg:col-span-5">
+          <div class="rounded-3xl bg-black/25 border border-[#e0ac45]/40 backdrop-blur-sm p-6 text-center">
+            <p class="text-sm font-bold text-[#f6d98b]">الذهب عيار 24 · الأنقى</p>
+            @if (featured; as gold) {
+              <p class="t-num text-5xl sm:text-6xl font-black mt-3 text-white">{{ gold.price.toFixed(3) }}</p>
+              <p class="text-sm mt-1 text-[#fff4dc]/80">ريال عُماني / جرام</p>
+              <p class="mt-3 inline-block t-num text-sm font-bold px-3 py-1 rounded-full bg-white/12" [class.text-[#7ee2b0]]="dailyChange('24K') >= 0" [class.text-[#ffb3b6]]="dailyChange('24K') < 0">
+                {{ dailyChange('24K') >= 0 ? '▲ +' : '▼ ' }}{{ dailyChange('24K').toFixed(3) }}
+              </p>
+            } @else {
+              <p class="t-num text-5xl font-black mt-3 text-white/50">—</p>
+            }
+          </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Info bar -->
+    <div class="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-3 text-sm">
+      <div class="t-panel px-4 py-3">
+        <p class="t-label">آخر تحديث</p>
+        <p class="font-bold mt-0.5">{{ lastUpdate }}</p>
+      </div>
+      <div class="t-panel px-4 py-3">
+        <p class="t-label">السوق</p>
+        <p class="font-bold mt-0.5">مسقط، سلطنة عُمان</p>
+      </div>
+      <div class="t-panel px-4 py-3">
+        <p class="t-label">العملة</p>
+        <p class="font-bold mt-0.5">الريال العُماني (ر.ع)</p>
+      </div>
+      <div class="t-panel px-4 py-3">
+        <p class="t-label">الوحدة</p>
+        <p class="font-bold mt-0.5">لكل جرام · بيانات تجريبية</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-16 space-y-14">
+
+    <!-- Today's gold prices -->
+    <section id="today-prices" class="scroll-mt-28">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="omani-diamond"></span>
+        <h2 class="text-2xl sm:text-3xl font-bold">متوسط أسعار الذهب اليوم</h2>
+      </div>
+      <p class="text-sm text-[var(--muted)] mb-6 pr-6">الأسعار الصافية لمختلف العيارات بالريال العُماني لكل جرام</p>
+
+      @if (isLoading) {
+        <div class="t-panel p-8 text-center text-[var(--muted)]">جارٍ تحميل الأسعار من الخادم...</div>
+      } @else if (hasError) {
+        <div role="alert" class="t-panel p-8 text-center t-down">
+          تعذّر الاتصال بالخادم. تأكد من تشغيل الـ API ثم أعد تحميل الصفحة.
+        </div>
+      } @else if (goldPrices.length === 0) {
+        <div class="t-panel p-8 text-center text-[var(--muted)]">لا توجد أسعار ذهب متاحة حاليًا.</div>
+      } @else {
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          @for (gold of goldPrices; track gold.karat) {
+            <app-gold-price-card
+              [karat]="gold.karat"
+              [price]="gold.price"
+              [change]="dailyChange(gold.karat)"
+              currency="ر.ع"
+              unit="لكل جرام صافي"
+            />
+          }
+        </div>
+      }
     </section>
 
-    <!-- Info bar under the hero: last update + market info -->
-    <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
-      <div class="gold-glass-card rounded-xl px-4 py-3 flex items-center gap-2.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span class="text-[#7e6749] dark:text-[#cdbb92]">آخر تحديث:</span>
-        <span class="font-bold text-[#3a280f] dark:text-[#f5e9c8]">{{ lastUpdate }}</span>
+    <!-- Gold calculator -->
+    <section id="calculator" class="scroll-mt-28">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="omani-diamond"></span>
+        <h2 class="text-2xl sm:text-3xl font-bold">حاسبة قيمة الذهب</h2>
       </div>
-      <div class="gold-glass-card rounded-xl px-4 py-3 flex items-center gap-2.5">
-        <span class="w-2 h-2 rounded-full bg-[#d4af37]"></span>
-        <span class="text-[#7e6749] dark:text-[#cdbb92]">السوق:</span>
-        <span class="font-bold text-[#3a280f] dark:text-[#f5e9c8]">مسقط، سلطنة عُمان</span>
+      <p class="text-sm text-[var(--muted)] mb-6 pr-6">احسب القيمة الإجمالية لمقتنياتك بحسب العيار والوزن بالجرام</p>
+      <app-gold-calculator [goldPrices]="goldPrices" />
+    </section>
+
+    <!-- 30-day trend -->
+    <section id="trend" class="scroll-mt-28">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="omani-diamond"></span>
+        <h2 class="text-2xl sm:text-3xl font-bold">حركة الأسعار البيانية</h2>
       </div>
-      <div class="gold-glass-card rounded-xl px-4 py-3 flex items-center gap-2.5">
-        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
-        <span class="text-[#7e6749] dark:text-[#cdbb92]">العملة:</span>
-        <span class="font-bold text-[#3a280f] dark:text-[#f5e9c8]">الريال العُماني (ر.ع)</span>
+      <p class="text-sm text-[var(--muted)] mb-6 pr-6">تتبع الصعود والانخفاض خلال آخر 30 يومًا</p>
+      <app-gold-price-chart [history]="goldHistory" />
+    </section>
+
+    <!-- Price history table -->
+    <section id="history" class="scroll-mt-28">
+      <div class="flex items-center gap-3 mb-1">
+        <span class="omani-diamond"></span>
+        <h2 class="text-2xl sm:text-3xl font-bold">سجل الأسعار التاريخي</h2>
       </div>
-      <div class="gold-glass-card rounded-xl px-4 py-3 flex items-center gap-2.5">
-        <span class="w-2 h-2 rounded-full bg-sky-400"></span>
-        <span class="text-[#7e6749] dark:text-[#cdbb92]">الوحدة:</span>
-        <span class="font-bold text-[#3a280f] dark:text-[#f5e9c8]">لكل جرام صافي · بيانات تجريبية</span>
-      </div>
-    </div>
+      <p class="text-sm text-[var(--muted)] mb-6 pr-6">الأرشيف المفصل للأسعار اليومية بالريال العُماني</p>
+      <app-price-history [history]="goldHistory" />
+    </section>
+
   </div>
-
-  <!-- Today's gold prices -->
-  <section id="today-prices" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
-      <div>
-        <div class="text-xs uppercase tracking-widest text-[#99681e] dark:text-[#e6c76a] font-bold mb-1">LIVE RATES</div>
-        <h2 class="text-2xl sm:text-3xl font-bold font-serif text-[#2c2011] dark:text-[#f1f1f1]">متوسط أسعار الذهب اليوم</h2>
-        <p class="text-[#735934] dark:text-[#cdbb92] text-sm mt-1">الأسعار الصافية لمختلف العيارات بالريال العُماني لكل جرام</p>
-      </div>
-      <div class="text-xs text-[#8a6820] dark:text-[#e6c76a] bg-[#f2e7cc] dark:bg-[#2a2415] px-4 py-2 rounded-xl border border-[#d4af37]/40 self-start sm:self-auto font-semibold">
-        🕒 آخر تحديث: {{ lastUpdate }}
-      </div>
-    </div>
-
-    @if (isLoading) {
-      <div class="gold-glass-card rounded-2xl p-8 text-center text-gray-500 dark:text-gray-400">
-        جارٍ تحميل الأسعار من الخادم...
-      </div>
-    } @else if (hasError) {
-      <div role="alert" class="gold-glass-card rounded-2xl p-8 text-center text-red-700 dark:text-red-300">
-        تعذّر الاتصال بالخادم. تأكد من تشغيل الـ API ثم أعد تحميل الصفحة.
-      </div>
-    } @else if (goldPrices.length === 0) {
-      <div class="gold-glass-card rounded-2xl p-8 text-center text-gray-500 dark:text-gray-400">
-        لا توجد أسعار ذهب متاحة حاليًا.
-      </div>
-    } @else {
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        @for (gold of goldPrices; track gold.karat) {
-          <app-gold-price-card [karat]="gold.karat" [price]="gold.price" currency="ر.ع" unit="لكل جرام صافي" />
-        }
-      </div>
-    }
-  </section>
-
-  <!-- Gold calculator -->
-  <section id="calculator" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
-    <div class="mb-8">
-      <div class="text-xs uppercase tracking-widest text-[#99681e] dark:text-[#e6c76a] font-bold mb-1">SMART ESTIMATOR</div>
-      <h2 class="text-2xl sm:text-3xl font-bold font-serif text-[#2c2011] dark:text-[#f1f1f1]">حاسبة قيمة الذهب</h2>
-      <p class="text-[#735934] dark:text-[#cdbb92] text-sm mt-1">احسب القيمة الإجمالية لمقتنياتك من الذهب بحسب العيار والوزن بالجرام</p>
-    </div>
-    <app-gold-calculator [goldPrices]="goldPrices" />
-  </section>
-
-  <!-- 30-day trend -->
-  <section id="trend" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
-    <div class="mb-8">
-      <div class="text-xs uppercase tracking-widest text-[#99681e] dark:text-[#e6c76a] font-bold mb-1">MARKET MOVEMENT</div>
-      <h2 class="text-2xl sm:text-3xl font-bold font-serif text-[#2c2011] dark:text-[#f1f1f1]">حركة الأسعار البيانية</h2>
-      <p class="text-[#735934] dark:text-[#cdbb92] text-sm mt-1">تتبع مؤشر الصعود والانخفاض خلال آخر 30 يومًا</p>
-    </div>
-    <app-gold-price-chart [history]="goldHistory" />
-  </section>
-
-  <!-- Price history table -->
-  <section id="history" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 pb-20 relative z-10">
-    <div class="mb-8">
-      <div class="text-xs uppercase tracking-widest text-[#99681e] dark:text-[#e6c76a] font-bold mb-1">HISTORICAL ARCHIVE</div>
-      <h2 class="text-2xl sm:text-3xl font-bold font-serif text-[#2c2011] dark:text-[#f1f1f1]">سجل الأسعار التاريخي</h2>
-      <p class="text-[#735934] dark:text-[#cdbb92] text-sm mt-1">الأرشيف المفصل للأسعار اليومية بالريال العُماني</p>
-    </div>
-    <app-price-history [history]="goldHistory" />
-  </section>
-
 </main>
 
-<!-- Luxury Soft Gold Footer -->
-<footer class="bg-[#f0e8d5] dark:bg-[#14151a] border-t border-[#d4af37]/40 py-12 relative z-10">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+<footer class="bg-[var(--panel)] border-t border-[var(--line)]">
+  <div class="omani-stripe"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-5">
 
     <div class="flex items-center gap-3">
-      <img src="gold.jpg" alt="Logo" class="w-10 h-10 rounded-full object-cover border-2 border-[#d4af37]/60 shadow-sm" />
+      <img src="gold.jpg" alt="Logo" class="w-10 h-10 rounded-full object-cover border-2 border-[var(--gold)]/60" />
       <div>
-        <p class="font-bold text-base text-[#4a3414] dark:text-[#f5e9c8] font-serif">لوحة أسعار الذهب في عُمان</p>
-        <p class="text-xs text-[#7e6745] dark:text-[#cdbb92]">أداة متابعة وتحليل أسعار الذهب في السلطنة</p>
+        <p class="t-display font-bold text-base">لوحة أسعار الذهب في عُمان</p>
+        <p class="text-xs text-[var(--muted)]">أداة متابعة وتحليل أسعار الذهب في السلطنة</p>
       </div>
     </div>
 
-    <!-- Copyright & Mira Almadilwi Credits -->
-    <div class="text-center md:text-left text-xs text-[#6e5837] dark:text-[#cdbb92]">
+    <!-- Copyright & credits -->
+    <div class="text-center md:text-left text-xs text-[var(--muted)]">
       <p>© 2026 الذهب العُماني. جميع الحقوق محفوظة.</p>
       <p class="mt-1">
         تصميم وتطوير:
@@ -155,7 +152,7 @@
           href="https://github.com/meeraalmadilwi-glitch"
           target="_blank"
           rel="noopener noreferrer"
-          class="font-bold text-[#8a5c0b] dark:text-[#e6c76a] hover:text-[#c49326] dark:hover:text-[#f0d892] underline underline-offset-4 transition-all ml-1"
+          class="font-bold text-[var(--gold)] hover:underline underline-offset-4 ml-1"
         >
           Mira Almadilwi (meeraalmadilwi-glitch)
         </a>
